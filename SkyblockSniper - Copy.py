@@ -73,9 +73,9 @@ def on_press(key):
     # if hasattr(key, 'vk'):
     #     print(key.vk)
     if hasattr(key, 'vk') and 96 <= key.vk <= 105:
-        print('You entered a number from the numpad: ', key.vk - 96)
+        # print('You entered a number from the numpad: ', key.vk - 96)
         try:
-            print(searchableResults[key.vk - 96])
+            # print(searchableResults[key.vk - 96])
             print("Copying Auction " + searchableResults[key.vk - 96][0])
             df = pd.DataFrame(['/viewauction ' + searchableResults[key.vk - 96][0]])
             df.to_clipboard(index=False, header=False)
@@ -86,25 +86,25 @@ def on_press(key):
             if r.status_code == 200:
                 result = r.json()
                 # print(result)
-                print("Current Min: " + Fore.BLUE + result[-1]['min'] + Style.RESET_ALL)
-                print("Average Min: " + Fore.MAGENTA + str(get_average_property(result, 'min')) + Style.RESET_ALL)
+                print("Current Min: " + Fore.BLUE + "{:,.2f}".format(result[-1]['min']) + Style.RESET_ALL)
+                print("Average Min: " + Fore.MAGENTA + "{:,.2f}".format(get_average_property(result, 'min')) + Style.RESET_ALL)
                 webbrowser.open("https://sky.coflnet.com/item/" + '_'.join(item_name.upper().split()) + "?range=week",
                                 autoraise=False)
             else:
-                print("Item Not Found")
+                print("Item " + '_'.join(item_name.upper().split()) + " Not Found")
 
         except IndexError:
             print("Auction not found!")
 
 
 def get_average_property(objects, property_name):
-    print("len")
-    print(len(objects))
+    # print("len")
+    # print(len(objects))
     total = 0
     count = 0
     for obj in objects:
-        print(obj)
-        print(obj[property_name])
+        # print(obj)
+        # print(obj[property_name])
         if obj[property_name]:
             total += obj[property_name]
             count += 1
